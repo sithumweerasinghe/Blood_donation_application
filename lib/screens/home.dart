@@ -1,10 +1,80 @@
-import 'package:bloodapp/screens/login.dart';
 import 'package:bloodapp/screens/profile.dart';
-import 'package:bloodapp/screens/welcome.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Blood Donation App',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => WelcomePage(),
+        '/home': (context) => HomePage(),
+        '/login': (context) => LoginPage(),
+      },
+    );
+  }
+}
+
+class WelcomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Welcome'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+              child: const Text('Go to Home Page'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
+              child: const Text('Login'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/home');
+          },
+          child: const Text('Login'),
+        ),
+      ),
+    );
+  }
+}
 
 class HomePage extends StatelessWidget {
   final List<String> imageList = [
@@ -81,7 +151,7 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 },
               ),
@@ -145,87 +215,140 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            // Logo and title
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-              child: Image.asset(
-                'assets/applogo.png', // Replace with your logo URL
-                height: 80,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
               ),
-            ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              // Logo and title
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: Image.asset(
+                  'assets/applogo.png', // Replace with your logo URL
+                  height: 80,
+                ),
+              ),
 
-            // Carousel Slider
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 200.0,
-                enlargeCenterPage: true,
-                autoPlay: true,
-                aspectRatio: 16 / 9,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enableInfiniteScroll: true,
-                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                viewportFraction: 0.8,
+              // Carousel Slider
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 200.0,
+                  enlargeCenterPage: true,
+                  autoPlay: true,
+                  aspectRatio: 16 / 9,
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enableInfiniteScroll: true,
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  viewportFraction: 0.8,
+                ),
+                items: imageList.map((item) => Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0), // Add radius
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: const Offset(0, 5), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0), // Add radius
+                    child: Image.asset(item, fit: BoxFit.cover, width: 2000),
+                  ),
+                )).toList(),
               ),
-              items: imageList.map((item) => Container(
-                margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0), // Add radius
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 7,
-                      offset: const Offset(0, 5), // changes position of shadow
+              const SizedBox(height: 20),
+
+              // Welcome text
+              Padding(
+                padding: const EdgeInsets
+              .symmetric(horizontal: 30.0),
+                child: Column(
+                  children: [
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontSize: 23.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                        children: [
+                          TextSpan(text: 'Welcome to Blood\n'),
+                          TextSpan(text: 'Donation'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Our mission is to bridge the gap between blood donors and recipients, providing a seamless and efficient experience for both parties. You can trust us, we provide the best service.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16.0, color: Colors.black54),
                     ),
                   ],
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0), // Add radius
-                  child: Image.asset(item, fit: BoxFit.cover, width: 2000),
-                ),
-              )).toList(),
-            ),
-            const SizedBox(height: 20),
-
-            // Welcome text
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                children: [
-                  RichText(
-                    textAlign: TextAlign.center,
-                    text: const TextSpan(
-                      style: TextStyle(
-                        fontSize: 23.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
-                      children: [
-                        TextSpan(text: 'Welcome to Blood\n'),
-                        TextSpan(text: 'Donation'),
-                      ],
-                    ),
-                  ),
-                  
-                ],
               ),
-            ),
-            const Spacer(),
-          ],
+              const SizedBox(height: 20),
+
+// Buttons
+Column(
+  children: [
+    ElevatedButton(
+      onPressed: () {
+        // Add find donor navigation or content here
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
+        padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 15),
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 18,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0), // Rounded corners
+        ),
+      ),
+      child: const Text('Find Donor'),
+    ),
+  ],
+),
+const SizedBox(height: 20),
+
+
+              // Photo
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/hero-banner.png', // Replace with your photo path
+                      height: 400,
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Join us in saving lives by donating blood. Every drop counts and makes a difference.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16.0, color: Colors.black54),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 60),
+            ],
+          ),
         ),
       ),
     );

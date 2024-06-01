@@ -74,6 +74,7 @@ flutter:
   - assets/images/blood1.jpg
   - assets/images/blood2.png
   - assets/images/blood3.jpg
+  - assets/images/hero-banner.png
   - assets/google.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
