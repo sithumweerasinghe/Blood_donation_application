@@ -44,7 +44,7 @@ class _FindDonorState extends State<FindDonor> {
               const Center(
                 child: Image(
                   image: AssetImage('assets/applogo.png'), // Add your logo image to assets
-                  height: 100,
+                  height: 70,
                 ),
               ),
               const SizedBox(height: 16),
