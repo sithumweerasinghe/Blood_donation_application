@@ -1,4 +1,5 @@
 import 'package:bloodapp/screens/about.dart';
+import 'package:bloodapp/screens/login.dart';
 import 'package:bloodapp/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => WelcomePage(),
         '/home': (context) => HomePage(),
-        '/login': (context) => LoginPage(),
       },
     );
   }
@@ -58,24 +58,6 @@ class WelcomePage extends StatelessWidget {
   }
 }
 
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/home');
-          },
-          child: const Text('Login'),
-        ),
-      ),
-    );
-  }
-}
 
 class HomePage extends StatelessWidget {
   final List<String> imageList = [
