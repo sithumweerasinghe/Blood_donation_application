@@ -1,4 +1,5 @@
 import 'package:bloodapp/screens/about.dart';
+import 'package:bloodapp/screens/finddonor.dart';
 import 'package:bloodapp/screens/login.dart';
 import 'package:bloodapp/screens/profile.dart';
 import 'package:flutter/material.dart';
@@ -183,7 +184,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.help),
-                title: const Text('Help'),
+                title: const Text('About us'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -292,7 +293,10 @@ Column(
   children: [
     ElevatedButton(
       onPressed: () {
-        // Add find donor navigation or content here
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FindDonor()),
+                  );
       },
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white, backgroundColor: Colors.red, // Text color
