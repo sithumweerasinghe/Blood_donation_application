@@ -17,4 +17,4 @@ License
 This project is licensed under the MIT License. Feel free to use, modify, and distribute the code for your own projects.
 
 Contact
-For any inquiries or feedback regarding bloodapp, you can reach out to us at your@email.com.
+For any inquiries or feedback regarding bloodapp, you can reach out to us at cgxnf.tm@gmail.com
