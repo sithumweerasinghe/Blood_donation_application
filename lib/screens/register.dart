@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart'; // Add this import
+import 'package:cloud_firestore/cloud_firestore.dart'; // Add this import
 import 'login.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -386,10 +386,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       password: _passwordController.text,
                     )
                         .then((UserCredential userCredential) {
-                      // Upload user data to Firebase Realtime Database
-                      DatabaseReference userRef =
-                          FirebaseDatabase.instance.reference().child('users');
-                      userRef.push().set({
+                      // Upload user data to Firebase Firestore
+                      FirebaseFirestore.instance.collection('users').add({
                         'firstName': _firstNameController.text,
                         'lastName': _lastNameController.text,
                         'username': _usernameController.text,
