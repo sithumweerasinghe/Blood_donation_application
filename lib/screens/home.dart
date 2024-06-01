@@ -1,3 +1,4 @@
+import 'package:bloodapp/screens/about.dart';
 import 'package:bloodapp/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -202,8 +203,10 @@ class HomePage extends StatelessWidget {
                 leading: const Icon(Icons.help),
                 title: const Text('Help'),
                 onTap: () {
-                  // Add help page navigation or content here
-                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AboutPage()),
+                  );
                 },
               ),
               ListTile(
@@ -287,14 +290,13 @@ class HomePage extends StatelessWidget {
                           color: Colors.red,
                         ),
                         children: [
-                          TextSpan(text: 'Welcome to Blood\n'),
-                          TextSpan(text: 'Donation'),
+                          TextSpan(text: 'FIND DONOR'),
                         ],
                       ),
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      'Our mission is to bridge the gap between blood donors and recipients, providing a seamless and efficient experience for both parties. You can trust us, we provide the best service.',
+                      'Are you in need of blood or looking to make a life-saving donation in Sri Lanka? Our Blood Donation Finder website is here to connect donors with those in need.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16.0, color: Colors.black54),
                     ),
@@ -337,9 +339,22 @@ const SizedBox(height: 20),
                       'assets/images/hero-banner.png', // Replace with your photo path
                       height: 400,
                     ),
+                                        RichText(
+                      textAlign: TextAlign.center,
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontSize: 23.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                        children: [
+                          TextSpan(text: 'Connecting The Donors'),
+                        ],
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     const Text(
-                      'Join us in saving lives by donating blood. Every drop counts and makes a difference.',
+                      'Welcome to the Sri Lanka Blood Donation Finder website, a crucial platform dedicated to bridging the gap between blood donors and recipients in need. In a country where timely access to blood can be a matter of life and death, our website strives to provide a comprehensive solution. Through an intuitive interface, users can effortlessly locate nearby blood donation centers and stay informed about upcoming events. The emphasis on user-friendly features aims to simplify the process, encouraging more individuals to participate in this noble cause.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16.0, color: Colors.black54),
                     ),
