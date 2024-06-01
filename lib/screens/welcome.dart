@@ -7,6 +7,7 @@ class WelcomePage extends StatelessWidget {
     'assets/images/blood1.jpg',
     'assets/images/blood2.png',
     'assets/images/blood3.jpg',
+    'assets/images/blood2.png',
   ];
 
 
